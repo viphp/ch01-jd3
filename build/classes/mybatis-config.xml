@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<!-- 1、引入创建好后的database.properties文件 -->
+	<properties resource="database.properties">
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+	</properties>
+	
+	<!-- 2、设置log的实现为Log4J -->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	<typeAliases>
+		<package name="cn.hp.entity"/>
+	</typeAliases>
+	<!-- 3、通过environments为MyBatis配置多套运行环境, alt + / -->
+	<environments default="development">
+		<!-- 配置了一套运行环境，环境的ID为development -->
+		<environment id="development">
+			<!-- 3.1 配置事务管理，采用JDBC事务管理 -->
+			<transactionManager type="JDBC"></transactionManager>
+			<!-- 3.2 配置数据源 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 引入创建好的Mapper.xml文件 -->
+	<mappers>
+		<mapper resource="cn/hp/dao/jd/JdMapper.xml" />
+		<mapper resource="cn/hp/dao/jd/ProviderMapper.xml"/>
+	</mappers>
+</configuration>
